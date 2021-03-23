@@ -13,7 +13,7 @@
         <div>{{ product.category }}</div>
         <div>{{ product.price }}</div>
 
-        <button class="button">add to cart</button>
+        <button class="button" @click="addToCart">add to cart</button>
       </div>
     </div>
   </div>
@@ -56,6 +56,12 @@ export default {
         },
       ],
     };
+  },
+
+  methods: {
+    addToCart(product) {
+      alert("Product added to cart");
+    },
   },
 };
 </script>
