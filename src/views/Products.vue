@@ -13,7 +13,7 @@
         <div>{{ product.category }}</div>
         <div>{{ product.price }}</div>
 
-        <button class="button" @click="addToCart">add to cart</button>
+        <button @click="addToCart">add to cart</button>
       </div>
     </div>
   </div>
@@ -44,7 +44,7 @@ export default {
           image:
             "https://images.unsplash.com/photo-1598032895397-b9472444bf93?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
           name: "Shirt",
-          category: "Cloths",
+          category: "Clothes",
           price: "R100",
         },
         {
@@ -52,7 +52,7 @@ export default {
             "https://images.unsplash.com/photo-1553880414-5fe13d83ddb6?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80",
           name: "Glass",
           category: "Kitchen",
-          price: "R150",
+          price: "R40",
         },
       ],
     };
@@ -81,10 +81,11 @@ export default {
   display: block;
   max-width: 200px;
   object-fit: contain;
-  border-radius: 8px;
-  object-fit: contain;
+  padding: 0.5rem;
+  margin: 1rem auto;
   width: 100%;
-  background: white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+  border-radius: 15px;
 }
 .products_items {
   border: 1px solid lightgray;
@@ -95,7 +96,24 @@ export default {
 .products_text {
   font-weight: bold;
 }
-.button {
+button {
   float: right;
+  border: 1px, solid lightskyblue;
+  background-color: grey;
+  padding: 4px;
+  border-radius: 12px;
+  margin: 1rem;
+  width: 7rem;
+  cursor: pointer;
+  box-shadow: 1px, 1px, 4px, lightskyblue;
+}
+button:focus {
+  outline: none;
+}
+button:hover,
+button:active {
+  background-color: lightskyblue;
+  border-color: blue;
+  box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.26);
 }
 </style>
