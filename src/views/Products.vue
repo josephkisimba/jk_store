@@ -1,6 +1,8 @@
 <template>
-  <div>
-    <Product :products_list="products" />
+  <div class="products">
+    <div v-for="product in products" :key="product.name">
+      <Product :productItem="product" />
+    </div>
   </div>
 </template>
 
@@ -14,7 +16,6 @@ export default {
 
   data() {
     return {
-      // cart: [],
       products: [
         {
           image:
@@ -47,11 +48,20 @@ export default {
       ],
     };
   },
-
-  methods: {
-    addToCart(product) {
-      alert("Product added to cart");
-    },
-  },
 };
 </script>
+
+<style scoped>
+* {
+  box-sizing: border-box;
+  font-weight: normal;
+  margin: 0;
+  padding: 0;
+}
+.products {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  width: 100%;
+  height: auto;
+}
+</style>
