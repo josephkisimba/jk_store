@@ -6,7 +6,7 @@
         <div>{{ productItem.name }}</div>
         <div>{{ productItem.category }}</div>
         <div>{{ productItem.price }}</div>
-        <button @click="addToCart">add to cart</button>
+        <button @click="addProduct">add to cart</button>
       </div>
     </div>
   </div>
@@ -15,12 +15,17 @@
 <script>
 export default {
   props: ["productItem"],
-  data() {
-    return {};
+  computed: {
+    cart() {
+      return store.state.cart;
+    },
   },
 
   methods: {
-    addToCart(productItem) {
+    addProduct() {
+      this.$store.commit("addToCart", this.productItem);
+      console.log("product", this.$store.state.cart);
+
       alert("Product added to cart");
     },
   },
