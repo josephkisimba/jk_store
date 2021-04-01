@@ -15,11 +15,6 @@
 <script>
 export default {
   props: ["productItem"],
-  computed: {
-    cart() {
-      return store.state.cart;
-    },
-  },
 
   methods: {
     addProduct() {
