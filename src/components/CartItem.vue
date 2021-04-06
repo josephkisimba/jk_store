@@ -19,7 +19,11 @@
         </div>
         <b-card-text>{{ cartItem.name }}</b-card-text>
         <b-card-text>{{ cartItem.price }}</b-card-text>
-        <b-button class="mb-1 mr-1" pill variant="outline-danger"
+        <b-button
+          class="mb-1 mr-1"
+          pill
+          variant="outline-danger"
+          @click="removeItem"
           >DELETE</b-button
         >
       </b-card>
@@ -32,9 +36,20 @@ export default {
   name: "CartItem",
   props: ["cartItem"],
   data() {
-    return {
-      count: [],
-    };
+    return {};
+  },
+  computed: {
+    cart() {
+      return this.$store.state.cart;
+    },
+  },
+  methods: {
+    removeItem() {
+      this.$store.commit("removeToCart", this.cart);
+      console.log("product", this.$store.state.cart);
+
+      alert("Product removed to cart");
+    },
   },
 };
 </script>

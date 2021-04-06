@@ -48,9 +48,6 @@ export default {
       return this.$store.state.cart;
     },
   },
-  methods: {
-    removeItem() {},
-  },
 };
 </script>
 
