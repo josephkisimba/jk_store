@@ -16,9 +16,24 @@
 export default {
   props: ["productItem"],
 
+  data() {
+    return {};
+  },
+  computed: {
+    cart() {
+      return this.$store.state.cart;
+    },
+  },
+  mounted() {
+    if (localStorage.getItem("cart")) {
+      try {
+      } catch (e) {}
+    }
+  },
   methods: {
     addProduct() {
       this.$store.commit("addToCart", this.productItem);
+      this.$store.commit("updateLocalStorage");
       console.log("product", this.$store.state.cart);
 
       alert("Product added to cart");
