@@ -9,7 +9,6 @@
         class="mb-3"
       >
         <div class="d-flex flex-row-reverse align-self-start mt-1 mr-1">
-          <label for="sb-inline"></label>
           <b-form-spinbutton
             id="sb-inline"
             v-model="value"
@@ -23,9 +22,10 @@
           class="mb-1 mr-1"
           pill
           variant="outline-danger"
-          @click="removeItem"
-          >DELETE</b-button
+          @click="removeItem(cartItem.id)"
         >
+          REMOVE
+        </b-button>
       </b-card>
     </div>
   </div>
@@ -36,19 +36,20 @@ export default {
   name: "CartItem",
   props: ["cartItem"],
   data() {
-    return {};
-  },
-  computed: {
-    cart() {
-      return this.$store.state.cart;
-    },
+    return {
+      value: 1,
+    };
   },
   methods: {
-    removeItem() {
-      this.$store.commit("removeToCart", this.cart);
-      console.log("product", this.$store.state.cart);
+    removeItem(id) {
+      this.$store.commit("removeToCart", id);
+      this.$store.commit("updateLocalStorage");
 
       alert("Product removed to cart");
+    },
+
+    cartFormatter(value) {
+      // return this.cartItem[value];
     },
   },
 };
