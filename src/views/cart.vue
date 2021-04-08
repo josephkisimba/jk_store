@@ -5,8 +5,8 @@
         <b-row class="p-2">
           <b-col cols="8">
             <b-card>
-              <div v-for="crt in cart" :key="crt.name">
-                <CartItem :cartItem="crt" />
+              <div v-for="item in cart" :key="item.id">
+                <CartItem :cartItem="item" />
               </div>
             </b-card>
           </b-col>
