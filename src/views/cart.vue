@@ -21,7 +21,7 @@
               <template #header>
                 <h6 class="mb-0">Summary</h6>
               </template>
-              <b-card-text> Subtotal: </b-card-text>
+              <b-card-text> Subtotal: {{ subTotalCal }} </b-card-text>
               <b-card-text> Tax: </b-card-text>
               <b-card-text> Total: </b-card-text>
 
@@ -46,6 +46,15 @@ export default {
   computed: {
     cart() {
       return this.$store.state.cart;
+    },
+
+    subTotalCal() {
+      return this.$store.getters.subtotal;
+    },
+  },
+  methods: {
+    subTotalCalcul() {
+      this.$store.commit("subtotal");
     },
   },
 };

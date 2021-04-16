@@ -1,32 +1,42 @@
 import Vue from "vue";
 import Vuex from "vuex";
+import createPersistedState from "vuex-persistedstate";
 
 Vue.use(Vuex);
 
-let cart = window.localStorage.getItem("cart");
-
 export default new Vuex.Store({
     state: {
-        cart: cart ? JSON.parse(cart) : [],
+        cart: [],
     },
-    mutations: {
-        addToCart(state, id) {
-            const item = state.cart.find((product) => product.id === id.id);
+    getters: {
+        productInCart(state) {
+            return state.cart;
+        },
+    },
 
-            if (item) {
-                item.quantity++;
+    mutations: {
+        addToCart(state, product) {
+            const item = state.cart.find((data) => data.id === product.id);
+
+            if (!item) {
+                state.cart.push(product);
             } else {
-                state.cart.push(id);
+                item.quantity++;
             }
         },
-        updateLocalStorage(state) {
-            window.localStorage.setItem("cart", JSON.stringify(state.cart));
+
+        subtotal(state) {
+            const subTot = state.cart.reduce(function(previous, current) {
+                (previous + current.price) * current.quantity;
+            }, 0);
+            return subTot;
+        },
+
+        increment(state) {
+            state.cart.quantity;
         },
 
         removeToCart(state, id) {
-            // let index = state.cart.indexOf(id);
-            // state.cart.splice(index, 1);
-
             state.cart = state.cart.filter((itemCart) => {
                 return itemCart.id !== id;
             });
@@ -34,4 +44,6 @@ export default new Vuex.Store({
     },
 
     actions: {},
+
+    plugins: [createPersistedState()],
 });
