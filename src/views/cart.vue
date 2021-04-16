@@ -21,9 +21,9 @@
               <template #header>
                 <h6 class="mb-0">Summary</h6>
               </template>
-              <b-card-text> Subtotal: {{ subTotalCal }} </b-card-text>
-              <b-card-text> Tax: </b-card-text>
-              <b-card-text> Total: </b-card-text>
+              <b-card-text> Subtotal: R{{ getSubTotal }} </b-card-text>
+              <b-card-text> Tax: 14% </b-card-text>
+              <b-card-text> Total: R{{ getTotal }} </b-card-text>
 
               <template #footer>
                 <b-button href="#" variant="primary">PAY</b-button>
@@ -48,14 +48,19 @@ export default {
       return this.$store.state.cart;
     },
 
-    subTotalCal() {
+    getSubTotal() {
       return this.$store.getters.subtotal;
+    },
+
+    getTotal() {
+      let total = this.getSubTotal + this.getSubTotal * 0.14;
+      return total;
     },
   },
   methods: {
-    subTotalCalcul() {
-      this.$store.commit("subtotal");
-    },
+    // subTotalCalcul() {
+    //   this.$store.commit("subtotal");
+    // },
   },
 };
 </script>

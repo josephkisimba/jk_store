@@ -12,6 +12,14 @@ export default new Vuex.Store({
         productInCart(state) {
             return state.cart;
         },
+
+        subtotal(state) {
+            let subtotalPrice = 0;
+            state.cart.map((item) => {
+                subtotalPrice += item.quantity * item.price;
+            });
+            return subtotalPrice;
+        },
     },
 
     mutations: {
@@ -25,14 +33,7 @@ export default new Vuex.Store({
             }
         },
 
-        subtotal(state) {
-            const subTot = state.cart.reduce(function(previous, current) {
-                (previous + current.price) * current.quantity;
-            }, 0);
-            return subTot;
-        },
-
-        increment(state) {
+        changeQuantityValue(state) {
             state.cart.quantity;
         },
 
@@ -42,8 +43,6 @@ export default new Vuex.Store({
             });
         },
     },
-
-    actions: {},
 
     plugins: [createPersistedState()],
 });

@@ -18,13 +18,13 @@
           ></b-form-spinbutton>
         </div>
         <b-card-text>{{ cartItem.name }}</b-card-text>
-        <b-card-text>{{ cartItem.price }}</b-card-text>
+        <b-card-text> R{{ cartItem.price }}</b-card-text>
 
         <b-button
           class="mb-1 mr-1"
           pill
           variant="outline-danger"
-          @click="removeItem"
+          @click="removeItem(cartItem.id)"
         >
           REMOVE
         </b-button>
@@ -43,7 +43,7 @@ export default {
       alert("Product removed from cart");
     },
     changeQuantity() {
-      this.$store.commit("increment");
+      this.$store.commit("changeQuantityValue");
       console.log("change", this.cartItem.quantity);
     },
   },

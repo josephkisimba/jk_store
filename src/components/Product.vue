@@ -2,11 +2,26 @@
   <div>
     <div class="product">
       <div class="products_item">
-        <img class="image" :src="productItem.image" />
-        <div>{{ productItem.name }}</div>
-        <div>{{ productItem.category }}</div>
-        <div>{{ productItem.price }}</div>
-        <button @click="addProduct">add to cart</button>
+        <b-card
+          no-body
+          style="max-width: 20rem; object-fit: cover; "
+          :img-src="productItem.image"
+          img-alt="Image"
+          img-top
+          img-width="100%"
+          img-height="200px"
+        >
+          <template #header>
+            <h4 class="mb-0">{{ productItem.name }}</h4>
+          </template>
+
+          <b-card-body>
+            {{ productItem.category }}
+            <b-card-text> </b-card-text>
+            <b-card-title>R{{ productItem.price }}</b-card-title>
+            <button @click="addProduct">add to cart</button>
+          </b-card-body>
+        </b-card>
       </div>
     </div>
   </div>
@@ -19,6 +34,7 @@ export default {
   methods: {
     addProduct() {
       this.$store.commit("addToCart", this.productItem);
+
       console.log("product", this.$store.state.cart);
 
       alert("Product added to cart");
@@ -29,21 +45,10 @@ export default {
 
 <style scoped>
 .products_item {
-  border: 1px solid lightgray;
-  border-radius: 15px;
   margin: 1rem;
   padding: auto;
 }
-.image {
-  display: block;
-  padding: auto;
-  margin: auto;
-  width: 100%;
-  height: 200px;
-  object-fit: cover;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
-  border-radius: 15px;
-}
+
 button {
   border: 1px, solid lightskyblue;
   background-color: grey;
@@ -53,6 +58,7 @@ button {
   width: 6rem;
   cursor: pointer;
   box-shadow: 1px, 1px, 4px, lightskyblue;
+  float: right;
 }
 button:focus {
   outline: none;
