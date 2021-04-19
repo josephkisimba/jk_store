@@ -17,8 +17,12 @@
             class="myButton"
           ></b-form-spinbutton>
         </div>
-        <b-card-text>{{ cartItem.name }}</b-card-text>
-        <b-card-text> R{{ cartItem.price }}</b-card-text>
+
+        <b-card-body>
+          <b-card-title>{{ cartItem.name }}</b-card-title>
+          <b-card-text> {{ cartItem.category }}</b-card-text>
+          <b-card-title>R{{ cartItem.price }}</b-card-title>
+        </b-card-body>
 
         <b-button
           class="mb-1 mr-1"
