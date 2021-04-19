@@ -9,10 +9,6 @@ export default new Vuex.Store({
         cart: [],
     },
     getters: {
-        productInCart(state) {
-            return state.cart;
-        },
-
         subtotal(state) {
             let subtotalPrice = 0;
             state.cart.map((item) => {

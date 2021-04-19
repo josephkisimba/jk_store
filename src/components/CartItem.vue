@@ -3,9 +3,9 @@
     <div class="mt-4 ml-2 mr-2">
       <b-card
         :img-src="cartItem.image"
-        img-alt="Card image"
+        img-alt="image"
         img-left
-        img-width="100"
+        img-width="25%"
         class="mb-3"
       >
         <div class="d-flex flex-row-reverse align-self-start mt-1 mr-1">
@@ -21,7 +21,7 @@
         <b-card-body>
           <b-card-title>{{ cartItem.name }}</b-card-title>
           <b-card-text> {{ cartItem.category }}</b-card-text>
-          <b-card-title>R{{ cartItem.price }}</b-card-title>
+          <b-card-title> R{{ cartItem.price }} </b-card-title>
         </b-card-body>
 
         <b-button

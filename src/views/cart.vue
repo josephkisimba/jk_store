@@ -57,11 +57,6 @@ export default {
       return total;
     },
   },
-  methods: {
-    // subTotalCalcul() {
-    //   this.$store.commit("subtotal");
-    // },
-  },
 };
 </script>
 
