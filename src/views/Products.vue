@@ -1,21 +1,5 @@
 <template>
   <div>
-    <div class="h2 mb-0">
-      <b-button
-        to="/cart"
-        variant="outline-info"
-        class="mb-2 mr-3 mt-2"
-        style="float: right"
-      >
-        <b-icon
-          to="/cart"
-          icon="cart"
-          aria-hidden="true"
-          shift-h="right"
-        ></b-icon>
-        cart
-      </b-button>
-    </div>
     <div class="products">
       <div v-for="product in products" :key="product.id">
         <Product :productItem="product" />
