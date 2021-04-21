@@ -23,6 +23,7 @@ export default new Vuex.Store({
             const item = state.cart.find((data) => data.id === product.id);
 
             if (!item) {
+                product.quantity = 1;
                 state.cart.push(product);
             } else {
                 item.quantity++;

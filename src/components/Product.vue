@@ -12,12 +12,12 @@
           img-height="200px"
         >
           <template #header>
-            <h4 class="mb-0">{{ productItem.name }}</h4>
+            <h4 class="mb-0">{{ productItem.title }}</h4>
           </template>
 
           <b-card-body>
-            {{ productItem.category }}
-            <b-card-text> </b-card-text>
+            <b-card-text> {{ productItem.category }}</b-card-text>
+
             <b-card-title>R{{ productItem.price }}</b-card-title>
             <button @click="addProduct">add to cart</button>
           </b-card-body>

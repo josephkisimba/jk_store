@@ -5,7 +5,7 @@
         :img-src="cartItem.image"
         img-alt="image"
         img-left
-        img-width="25%"
+        img-width="100"
         class="mb-3"
       >
         <div class="d-flex flex-row-reverse align-self-start mt-1 mr-1">

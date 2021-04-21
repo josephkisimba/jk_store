@@ -9,7 +9,11 @@
 </template>
 
 <script>
+import Vue from "vue";
+import Axios from "axios";
 import Product from "@/components/Product.vue";
+
+Vue.use(Axios);
 export default {
   name: "Products",
   components: {
@@ -22,9 +26,9 @@ export default {
   },
 
   mounted() {
-    fetch("https://fakestoreapi.com/products")
-      .then((res) => res.json())
-      .then((json) => console.log(json));
+    Axios.get("https://fakestoreapi.com/products").then(
+      (response) => (this.products = response.data)
+    );
   },
 };
 </script>
