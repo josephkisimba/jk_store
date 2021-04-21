@@ -47,14 +47,22 @@ export default {
     cart() {
       return this.$store.state.cart;
     },
+    getAllProduct() {
+      return this.$store.getters.cart;
+    },
 
     getSubTotal() {
-      return this.$store.getters.subtotal;
+      return this.roundToTwo(this.$store.getters.subtotal);
     },
 
     getTotal() {
       let total = this.getSubTotal + this.getSubTotal * 0.14;
-      return total;
+      return this.roundToTwo(total);
+    },
+  },
+  methods: {
+    roundToTwo(num) {
+      return +(Math.round(num + "e+2") + "e-2");
     },
   },
 };

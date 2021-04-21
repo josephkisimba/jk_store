@@ -9,6 +9,9 @@ export default new Vuex.Store({
         cart: [],
     },
     getters: {
+        allProduct(state) {
+            return state.cart;
+        },
         subtotal(state) {
             let subtotalPrice = 0;
             state.cart.map((item) => {
@@ -26,12 +29,12 @@ export default new Vuex.Store({
                 product.quantity = 1;
                 state.cart.push(product);
             } else {
-                item.quantity++;
+                item.quantity += 1;
             }
         },
 
         changeQuantityValue(state) {
-            state.cart.quantity;
+            state.count = state.cart.quantity++;
         },
 
         removeToCart(state, id) {
