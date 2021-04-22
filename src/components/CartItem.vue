@@ -43,7 +43,7 @@ export default {
   methods: {
     removeItem(id) {
       this.$store.commit("removeToCart", id);
-      // alert("Product removed from cart");
+      alert("Product removed from cart");
     },
     // changeQuantity(quantity) {
     //   this.$store.commit("changeQuantityValue", quantity);
