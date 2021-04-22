@@ -33,9 +33,7 @@ export default new Vuex.Store({
             }
         },
 
-        changeQuantityValue(state) {
-            state.count = state.cart.quantity++;
-        },
+        changeQuantityValue(state) {},
 
         removeToCart(state, id) {
             state.cart = state.cart.filter((itemCart) => {

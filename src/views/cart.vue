@@ -52,16 +52,16 @@ export default {
     },
 
     getSubTotal() {
-      return this.roundToTwo(this.$store.getters.subtotal);
+      return this.roundingOffToTwo(this.$store.getters.subtotal);
     },
 
     getTotal() {
       let total = this.getSubTotal + this.getSubTotal * 0.14;
-      return this.roundToTwo(total);
+      return this.roundingOffToTwo(total);
     },
   },
   methods: {
-    roundToTwo(num) {
+    roundingOffToTwo(num) {
       return +(Math.round(num + "e+2") + "e-2");
     },
   },

@@ -12,7 +12,6 @@
           <b-form-spinbutton
             id="sb-inline"
             v-model="cartItem.quantity"
-            @change="changeQuantity"
             inline
             class="myButton"
           ></b-form-spinbutton>
@@ -44,12 +43,12 @@ export default {
   methods: {
     removeItem(id) {
       this.$store.commit("removeToCart", id);
-      alert("Product removed from cart");
+      // alert("Product removed from cart");
     },
-    changeQuantity() {
-      this.$store.commit("changeQuantityValue");
-      console.log("change", this.cartItem.quantity);
-    },
+    // changeQuantity(quantity) {
+    //   this.$store.commit("changeQuantityValue", quantity);
+    //   console.log("change", this.cartItem.quantity);
+    // },
   },
 };
 </script>

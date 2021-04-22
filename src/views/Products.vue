@@ -12,8 +12,8 @@
 import Vue from "vue";
 import Axios from "axios";
 import Product from "@/components/Product.vue";
+Vue.prototype.$ajax = Axios;
 
-Vue.use(Axios);
 export default {
   name: "Products",
   components: {
