@@ -16,9 +16,9 @@
             class="myButton"
           ></b-form-spinbutton>
         </div>
-
+        <button @click="decrementQuantity">decrement</button>
         <b-card-body>
-          <b-card-title>{{ cartItem.name }}</b-card-title>
+          <b-card-title>{{ cartItem.title }}</b-card-title>
           <b-card-text> {{ cartItem.category }}</b-card-text>
           <b-card-title> R{{ cartItem.price }} </b-card-title>
         </b-card-body>
@@ -27,7 +27,7 @@
           class="mb-1 mr-1"
           pill
           variant="outline-danger"
-          @click="removeItem(cartItem.id)"
+          @click="removeItem"
         >
           REMOVE
         </b-button>
@@ -41,14 +41,15 @@ export default {
   name: "CartItem",
   props: ["cartItem"],
   methods: {
-    removeItem(id) {
-      this.$store.commit("removeToCart", id);
+    removeItem() {
+      this.$store.commit("removeFromCart", this.cartItem.id);
       alert("Product removed from cart");
     },
-    // changeQuantity(quantity) {
-    //   this.$store.commit("changeQuantityValue", quantity);
-    //   console.log("change", this.cartItem.quantity);
-    // },
+
+    decrementQuantity() {
+      this.$store.commit("decrement", this.cartItem);
+      console.log("quantity", this.cartItem.quantity);
+    },
   },
 };
 </script>
