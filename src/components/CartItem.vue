@@ -8,15 +8,35 @@
         img-width="100"
         class="mb-3"
       >
-        <div class="d-flex flex-row-reverse align-self-start mt-1 mr-1">
-          <b-form-spinbutton
-            id="sb-inline"
-            v-model="cartItem.quantity"
-            inline
-            class="myButton"
-          ></b-form-spinbutton>
+        <div style="float: right" class="mr-2">
+          <b-button
+            class="mt-2"
+            style="width: 40px"
+            squared
+            variant="outline-secondary"
+            @click="incrementQuantity"
+          >
+            +
+          </b-button>
+          <b-button
+            class="mt-2"
+            disabled
+            squared
+            variant="outline-secondary"
+            style="width: 40px"
+            >{{ cartItem.quantity }}</b-button
+          >
+          <b-button
+            class="mt-2"
+            style="width: 40px"
+            squared
+            variant="outline-secondary"
+            @click="decrementQuantity"
+          >
+            -
+          </b-button>
         </div>
-        <button @click="decrementQuantity">decrement</button>
+
         <b-card-body>
           <b-card-title>{{ cartItem.title }}</b-card-title>
           <b-card-text> {{ cartItem.category }}</b-card-text>
@@ -45,9 +65,13 @@ export default {
       this.$store.commit("removeFromCart", this.cartItem.id);
       alert("Product removed from cart");
     },
+    incrementQuantity() {
+      this.$store.commit("increment", this.cartItem.id);
+      console.log("quantity", this.cartItem.quantity);
+    },
 
     decrementQuantity() {
-      this.$store.commit("decrement", this.cartItem);
+      this.$store.commit("decrement", this.cartItem.id);
       console.log("quantity", this.cartItem.quantity);
     },
   },

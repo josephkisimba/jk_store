@@ -34,7 +34,7 @@ export default new Vuex.Store({
         },
 
         increment(state, product) {
-            const item = state.cart.find((data) => data.id === product.id);
+            const item = state.cart.find((data) => data.id === product);
 
             if (item) {
                 item.quantity += 1;
@@ -42,7 +42,7 @@ export default new Vuex.Store({
         },
 
         decrement(state, product) {
-            let itemIncart = state.cart.find((data) => data.id === product.id);
+            let itemIncart = state.cart.find((data) => data.id === product);
             console.log(itemIncart);
 
             if (itemIncart && itemIncart.quantity > 1) {

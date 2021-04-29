@@ -36,7 +36,7 @@ export default {
       this.$store.commit("addToCart", this.productItem);
       console.log("product", this.$store.state.cart);
 
-      alert("Product added to cart");
+      // alert("Product added to cart");
     },
   },
 };
