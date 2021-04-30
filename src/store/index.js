@@ -43,7 +43,7 @@ export default new Vuex.Store({
 
         decrement(state, id) {
             let itemIncart = state.cart.find((data) => data.id === id);
-            console.log(itemIncart);
+            // console.log(itemIncart);
 
             if (itemIncart && itemIncart.quantity > 1) {
                 itemIncart.quantity = itemIncart.quantity - 1;

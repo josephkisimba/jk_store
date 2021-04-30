@@ -44,8 +44,7 @@
         </b-card-body>
 
         <b-button
-          class="mb-1 mr-1"
-          pill
+          class="mb-1 mr-2"
           variant="outline-danger"
           @click="removeItem"
         >
