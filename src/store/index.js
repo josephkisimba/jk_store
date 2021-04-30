@@ -22,8 +22,8 @@ export default new Vuex.Store({
     },
 
     mutations: {
-        addToCart(state, id) {
-            const item = state.cart.find((data) => data.id === id);
+        addToCart(state, product) {
+            const item = state.cart.find((data) => data.id === product.id);
 
             if (!item) {
                 product.quantity = 1;
