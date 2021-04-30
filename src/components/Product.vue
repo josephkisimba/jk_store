@@ -33,7 +33,7 @@ export default {
 
   methods: {
     addProduct() {
-      this.$store.commit("addToCart", this.productItem);
+      this.$store.commit("addToCart", this.productItem.id);
       console.log("product", this.$store.state.cart);
 
       alert("Product added to cart");

@@ -22,8 +22,8 @@ export default new Vuex.Store({
     },
 
     mutations: {
-        addToCart(state, product) {
-            const item = state.cart.find((data) => data.id === product.id);
+        addToCart(state, id) {
+            const item = state.cart.find((data) => data.id === id);
 
             if (!item) {
                 product.quantity = 1;
@@ -33,16 +33,16 @@ export default new Vuex.Store({
             }
         },
 
-        increment(state, product) {
-            const item = state.cart.find((data) => data.id === product);
+        increment(state, id) {
+            const item = state.cart.find((data) => data.id === id);
 
             if (item) {
                 item.quantity += 1;
             }
         },
 
-        decrement(state, product) {
-            let itemIncart = state.cart.find((data) => data.id === product);
+        decrement(state, id) {
+            let itemIncart = state.cart.find((data) => data.id === id);
             console.log(itemIncart);
 
             if (itemIncart && itemIncart.quantity > 1) {

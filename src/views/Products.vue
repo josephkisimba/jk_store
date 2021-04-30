@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="container">
+    <div class="product">
       <div v-for="product in products" :key="product.id">
         <Product :productItem="product" />
       </div>
@@ -40,7 +40,7 @@ export default {
   margin: 0;
   padding: 0;
 }
-.container {
+.product {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   width: 100%;
