@@ -12,6 +12,8 @@
           <b-nav-item to="/product"> Products </b-nav-item>
           <b-nav-item to="/about"> About </b-nav-item>
           <b-nav-item to="/contact"> Contact </b-nav-item>
+          <b-nav-item to="/register"> register </b-nav-item>
+          <b-nav-item to="/login"> login </b-nav-item>
           <div>
             <b-button to="/cart" variant="black">
               <b-icon icon="cart" aria-hidden="true"></b-icon>
