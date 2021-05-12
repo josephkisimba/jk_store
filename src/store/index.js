@@ -9,7 +9,7 @@ export default new Vuex.Store({
         cart: [],
     },
     getters: {
-        allProduct(state) {
+        cartProducts(state) {
             return state.cart;
         },
         subtotal(state) {
@@ -24,10 +24,11 @@ export default new Vuex.Store({
     mutations: {
         addToCart(state, product) {
             const item = state.cart.find((data) => data.id === product.id);
-
+            console.log("Find", item);
             if (!item) {
                 product.quantity = 1;
                 state.cart.push(product);
+                console.log("products added", product);
             } else {
                 item.quantity += 1;
             }
@@ -35,20 +36,33 @@ export default new Vuex.Store({
 
         increment(state, id) {
             const item = state.cart.find((data) => data.id === id);
-
-            if (item) {
+            const itemIndex = state.cart.findIndex((data) => data.id === id);
+            console.log("item", item);
+            console.log("itemIndex", itemIndex);
+            if (item && itemIndex >= 0) {
+                console.log("increment");
                 item.quantity += 1;
+                state.cart[itemIndex] = item;
+                state.cart = state.cart;
+                console.log("cart", state.cart);
             }
         },
 
         decrement(state, id) {
-            let itemIncart = state.cart.find((data) => data.id === id);
-            // console.log(itemIncart);
-
-            if (itemIncart && itemIncart.quantity > 1) {
-                itemIncart.quantity = itemIncart.quantity - 1;
-            } else if (itemIncart.quantity == 1) {
-                itemIncart.quantity === 1;
+            const item = state.cart.find((data) => data.id === id);
+            const itemIndex = state.cart.findIndex((data) => data.id === id);
+            console.log("item", item);
+            console.log("itemIndex", itemIndex);
+            if (item && itemIndex >= 0) {
+                console.log("decrement");
+                item.quantity -= 1;
+                if (item.quantity >= 1) {
+                    state.cart[itemIndex] = item;
+                } else {
+                    state.cart.splice(itemIndex, 1);
+                }
+                state.cart = state.cart;
+                console.log("cart", state.cart);
             }
         },
 

@@ -5,7 +5,7 @@
         <b-row class="p-2">
           <b-col cols="8">
             <b-card>
-              <div v-for="item in cart" :key="item.id">
+              <div v-for="item in getCartProducts" :key="item.id">
                 <CartItem :cartItem="item" />
               </div>
             </b-card>
@@ -44,11 +44,9 @@ export default {
     CartItem,
   },
   computed: {
-    cart() {
-      return this.$store.state.cart;
-    },
-    getAllProduct() {
-      return this.$store.getters.cart;
+    getCartProducts() {
+      // console.log("cartProduct", this.$store.getters.cartProducts);
+      return this.$store.getters.cartProducts;
     },
 
     getSubTotal() {

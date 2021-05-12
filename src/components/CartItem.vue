@@ -18,14 +18,8 @@
           >
             +
           </b-button>
-          <b-button
-            class="mt-2"
-            disabled
-            squared
-            variant="outline-secondary"
-            style="width: 40px"
-            >{{ cartItem.quantity }}</b-button
-          >
+          <p>{{ cartItem.quantity }}</p>
+
           <b-button
             class="mt-2"
             style="width: 40px"
@@ -47,6 +41,7 @@
           class="mb-1 mr-2"
           variant="outline-danger"
           @click="removeItem"
+          style="width: 80px"
         >
           REMOVE
         </b-button>
@@ -59,6 +54,13 @@
 export default {
   name: "CartItem",
   props: ["cartItem"],
+
+  computed: {
+    quantity() {
+      // console.log("cartItemQuantity", this.cartItem.quantity);
+      return this.cartItem.quantity;
+    },
+  },
   methods: {
     removeItem() {
       this.$store.commit("removeFromCart", this.cartItem.id);
@@ -66,12 +68,12 @@ export default {
     },
     incrementQuantity() {
       this.$store.commit("increment", this.cartItem.id);
-      console.log("quantity", this.cartItem.quantity);
+      // console.log("quantity", this.cartItem.quantity);
     },
 
     decrementQuantity() {
       this.$store.commit("decrement", this.cartItem.id);
-      console.log("quantity", this.cartItem.quantity);
+      // console.log("quantity", this.cartItem.quantity);
     },
   },
 };
