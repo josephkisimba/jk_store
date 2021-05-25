@@ -12,10 +12,10 @@
           <b-nav-item to="/product"> Products </b-nav-item>
           <b-nav-item to="/about"> About </b-nav-item>
           <b-nav-item to="/contact">Contact </b-nav-item>
-          <b-nav-item v-if="!LoggedIn" v-b-modal.modal1>
+          <b-nav-item v-if="!LoggedIn" v-b-modal.modal_1>
             Register
           </b-nav-item>
-          <b-nav-item v-if="!LoggedIn" v-b-modal.modal-2> Login </b-nav-item>
+          <b-nav-item v-if="!LoggedIn" v-b-modal.modal_2> Login </b-nav-item>
           <b-nav-item v-if="LoggedIn">
             <b-icon icon="person-fill"></b-icon> {{ getUser.em }}
           </b-nav-item>

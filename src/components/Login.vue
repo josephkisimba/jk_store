@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-modal id="modal-2" title="LOGIN" hide-footer>
+    <b-modal id="modal_2" title="LOGIN" hide-footer>
       <b-row class="my-1">
         <b-col sm="4">
           <label for="input-username">Username</label>

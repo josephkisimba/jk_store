@@ -30,11 +30,6 @@
 <script>
 export default {
   props: ["productItem"],
-  data() {
-    return {
-      id: modal - 1,
-    };
-  },
   computed: {
     getUserLoggedIn() {
       console.log("getUserLoggedIn", this.$store.getters.userLoggedIn);
@@ -52,9 +47,7 @@ export default {
 
         alert("Product added to cart");
       } else {
-        this.$bvModal.show(this.id);
-
-        console.log("login");
+        console.log("login", this.id);
       }
     },
   },
