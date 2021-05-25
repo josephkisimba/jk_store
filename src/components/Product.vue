@@ -31,12 +31,31 @@
 export default {
   props: ["productItem"],
 
+  computed: {
+    getUserLoggedIn() {
+      console.log("getUserLoggedIn", this.$store.getters.userLoggedIn);
+      return this.$store.getters.userLoggedIn;
+    },
+  },
+
   methods: {
     addProduct() {
-      this.$store.commit("addToCart", this.productItem);
-      console.log("product", this.$store.state.cart);
+      console.log("user addProduct", this.getUserLoggedIn);
+      if (this.getUserLoggedIn) {
+        this.$store.commit("addToCart", this.productItem);
+        hideModal();
+        console.log("product", this.$store.state.cart);
 
-      alert("Product added to cart");
+        alert("Product added to cart");
+      } else {
+        this.$refs["modal-2"].show();
+        hideModal();
+
+        console.log("login");
+      }
+    },
+    hideModal() {
+      this.$refs["modal-2"].hide();
     },
   },
 };
