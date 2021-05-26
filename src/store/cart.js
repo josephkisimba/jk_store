@@ -61,7 +61,7 @@ export default {
 
         removeFromCart(state, id) {
             state.cart = state.cart.filter((itemCart) => {
-                return itemCart.id === !id;
+                return itemCart.id !== id;
             });
         },
     },

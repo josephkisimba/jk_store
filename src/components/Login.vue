@@ -57,9 +57,9 @@ export default {
       if (this.input.email === "" || this.input.password === "") {
         alert("please enter your email and your password");
       } else {
-        let em = this.input.email;
-        let pass = this.input.password;
-        this.$store.commit("setUser", { em, pass });
+        let email = this.input.email;
+        let password = this.input.password;
+        this.$store.commit("setUser", { email, password });
 
         alert("Login successfull");
       }

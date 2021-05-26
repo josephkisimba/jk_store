@@ -17,7 +17,7 @@
           </b-nav-item>
           <b-nav-item v-if="!LoggedIn" v-b-modal.modal_2> Login </b-nav-item>
           <b-nav-item v-if="LoggedIn">
-            <b-icon icon="person-fill"></b-icon> {{ getUser.em }}
+            <b-icon icon="person-fill"></b-icon> {{ getUser.email }}
           </b-nav-item>
           <b-nav-item v-if="LoggedIn" @click="logOut"> Logout </b-nav-item>
           <div>
@@ -43,7 +43,7 @@ export default {
       return this.$store.getters.userLoggedIn;
     },
     cart() {
-      return this.$store.state.cart.cart;
+      return this.$store.getters.cartProducts;
     },
   },
   methods: {

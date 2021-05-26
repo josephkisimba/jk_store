@@ -19,7 +19,7 @@
             <b-card-text> {{ productItem.category }}</b-card-text>
 
             <b-card-title>R{{ productItem.price }}</b-card-title>
-            <button @click="addProduct">add to cart</button>
+            <button @click="sendInviteToUsers">add to cart</button>
           </b-card-body>
         </b-card>
       </div>
@@ -47,7 +47,7 @@ export default {
 
         alert("Product added to cart");
       } else {
-        console.log("login", this.id);
+        console.log("login", this.showModal);
       }
     },
   },
