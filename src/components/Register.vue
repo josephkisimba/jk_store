@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-modal id="modal1" title="REGISTER" hide-footer>
+    <b-modal id="modal_1" title="REGISTER" hide-footer>
       <b-row class="my-1">
         <b-col sm="4">
           <label for="input-firstname input-live">FirstName</label>
@@ -70,6 +70,9 @@
           <b-button @click="register" variant="success" class="mt-2">
             REGISTER
           </b-button>
+          <p @click="$bvModal.hide('modal_1')" v-b-modal.my-modal_2>
+            Already have an account?
+          </p>
         </b-col>
       </b-row>
     </b-modal>
@@ -103,6 +106,8 @@ export default {
       ) {
         alert("Fill all the inputfield");
       } else if (this.valid()) {
+        this.$bvModal.hide("modal_1");
+
         alert("You have been Register");
       } else {
         alert("password incorrect");

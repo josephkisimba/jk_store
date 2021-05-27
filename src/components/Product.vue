@@ -28,18 +28,23 @@
 </template>
 
 <script>
+import Login from "@/components/Login.vue";
+
 export default {
+  components: {
+    Login,
+  },
   props: ["productItem"],
+  data() {
+    return {};
+  },
   computed: {
     getUserLoggedIn() {
-      console.log("getUserLoggedIn", this.$store.getters.userLoggedIn);
       return this.$store.getters.userLoggedIn;
     },
   },
-
   methods: {
     addProduct() {
-      console.log("user addProduct", this.getUserLoggedIn);
       if (this.getUserLoggedIn) {
         this.$store.commit("addToCart", this.productItem);
 
@@ -47,7 +52,8 @@ export default {
 
         alert("Product added to cart");
       } else {
-        console.log("login", this.showModal);
+        this.$bvModal.show("my-modal_2");
+        console.log("login");
       }
     },
   },

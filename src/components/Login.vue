@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-modal id="modal_2" title="LOGIN" hide-footer>
+    <b-modal ref="my-modal_2" id="my-modal_2" title="LOGIN" hide-footer>
       <b-row class="my-1">
         <b-col sm="4">
           <label for="input-username">Username</label>
@@ -29,6 +29,9 @@
           <b-button @click="login" variant="outline-primary" class="mt-2">
             LOGIN
           </b-button>
+          <P @click="$bvModal.hide('my-modal_2')" v-b-modal.modal_1
+            >Don't have an account?</P
+          >
         </b-col>
       </b-row>
     </b-modal>
@@ -60,7 +63,7 @@ export default {
         let email = this.input.email;
         let password = this.input.password;
         this.$store.commit("setUser", { email, password });
-
+        this.$bvModal.hide("my-modal_2");
         alert("Login successfull");
       }
     },
