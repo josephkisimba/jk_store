@@ -53,7 +53,7 @@ export default {
         alert("Product added to cart");
       } else {
         this.$bvModal.show("my-modal_2");
-        console.log("login");
+        // console.log("login");
       }
     },
   },

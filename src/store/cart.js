@@ -17,7 +17,7 @@ export default {
 
     mutations: {
         addToCart(state, product) {
-            const item = state.cart.find((data) => data.id === product.id);
+            const item = state.cart.cart.find((data) => data.id === product.id);
             if (!item) {
                 product.quantity = 1;
                 state.cart.push(product);
@@ -28,8 +28,8 @@ export default {
         },
 
         increment(state, id) {
-            const item = state.cart.find((data) => data.id === id);
-            const itemIndex = state.cart.findIndex((data) => data.id === id);
+            const item = state.cart.cart.find((data) => data.id === id);
+            const itemIndex = state.cart.cart.findIndex((data) => data.id === id);
             // console.log("item", item);
             // console.log("itemIndex", itemIndex);
             if (item && itemIndex >= 0) {
@@ -42,8 +42,8 @@ export default {
         },
 
         decrement(state, id) {
-            const item = state.cart.find((data) => data.id === id);
-            const itemIndex = state.cart.findIndex((data) => data.id === id);
+            const item = state.cart.cart.find((data) => data.id === id);
+            const itemIndex = state.cart.cart.findIndex((data) => data.id === id);
             // console.log("item", item);
             // console.log("itemIndex", itemIndex);
             if (item && itemIndex >= 0) {
@@ -60,7 +60,7 @@ export default {
         },
 
         removeFromCart(state, id) {
-            state.cart = state.cart.filter((itemCart) => {
+            state.cart = state.cart.cart.filter((itemCart) => {
                 return itemCart.id !== id;
             });
         },

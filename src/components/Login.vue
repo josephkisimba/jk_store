@@ -63,7 +63,9 @@ export default {
         let email = this.input.email;
         let password = this.input.password;
         this.$store.commit("setUser", { email, password });
+        // this.$refs["email"].value === "";
         this.$bvModal.hide("my-modal_2");
+
         alert("Login successfull");
       }
     },

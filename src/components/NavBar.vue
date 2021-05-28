@@ -25,7 +25,7 @@
             <div>
               <b-button to="/cart" variant="black">
                 <b-icon icon="cart" aria-hidden="true"></b-icon>
-                cart {{ cart.length }}
+                cart
               </b-button>
             </div>
           </b-nav-item>
