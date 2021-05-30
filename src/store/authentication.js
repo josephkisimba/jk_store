@@ -1,4 +1,6 @@
 export default {
+    namespacd: true,
+
     state: {
         user: null,
     },
