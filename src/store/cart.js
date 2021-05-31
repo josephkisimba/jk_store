@@ -1,8 +1,10 @@
 export default {
     namespacd: true,
-    state: {
+
+    state: () => ({
         cart: [],
-    },
+    }),
+
     getters: {
         cartProducts(state) {
             return state.cart;

@@ -1,9 +1,10 @@
 export default {
     namespacd: true,
 
-    state: {
+    state: () => ({
         user: null,
-    },
+    }),
+
     getters: {
         user(state) {
             return state.user;
