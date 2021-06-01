@@ -28,12 +28,8 @@
 </template>
 
 <script>
-import Login from "@/components/Login.vue";
-
 export default {
-  components: {
-    Login,
-  },
+  name: "Product",
   props: ["productItem"],
   data() {
     return {};
