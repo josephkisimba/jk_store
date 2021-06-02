@@ -25,7 +25,7 @@
             <div>
               <b-button to="/cart" variant="black">
                 <b-icon icon="cart" aria-hidden="true"></b-icon>
-                cart
+                cart {{ cart.length }}
               </b-button>
             </div>
           </b-nav-item>
@@ -46,6 +46,7 @@ export default {
       return this.$store.getters.userLoggedIn;
     },
     cart() {
+      // console.log(this.$store.getters.cart);
       return this.$store.getters.cartProducts;
     },
   },
