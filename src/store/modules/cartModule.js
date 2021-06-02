@@ -28,7 +28,7 @@ export default {
 
         increment(state, id) {
             const item = state.cart.find((data) => data.id === id);
-
+            console.log("item", item);
             if (item) {
                 item.quantity += 1;
             }
@@ -46,6 +46,11 @@ export default {
         removeFromCart(state, id) {
             state.cart = state.cart.filter((itemCart) => {
                 return itemCart.id !== id;
+            });
+        },
+        emptyCart(state, id) {
+            state.cart = state.cart.filter((itemCart) => {
+                return itemCart.id === !id;
             });
         },
     },

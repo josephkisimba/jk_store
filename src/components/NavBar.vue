@@ -38,6 +38,7 @@
 <script>
 export default {
   name: "NavBar",
+
   computed: {
     getUser() {
       return this.$store.getters.user;
@@ -53,6 +54,7 @@ export default {
   methods: {
     logOut() {
       this.$store.commit("logOutUser");
+      this.$store.commit("emptyCart");
     },
   },
 };
