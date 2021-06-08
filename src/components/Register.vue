@@ -80,21 +80,42 @@
 </template>
 
 <script>
+import firebase from "firebase/app";
+import "firebase/auth";
+
+var firebaseConfig = {
+  apiKey: "AIzaSyBoWzvnEiow6wW0TRN_zXxlgINnKDoEPUQ",
+  authDomain: "my-store-bcc41.firebaseapp.com",
+  projectId: "my-store-bcc41",
+  storageBucket: "my-store-bcc41.appspot.com",
+  messagingSenderId: "117645143532",
+  appId: "1:117645143532:web:ce791919b160eb0579e4c9",
+  measurementId: "G-7W2N3MHHSW",
+};
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
+// firebase.analytics();
+
 export default {
   name: "Register",
-  computed: {},
   data() {
     return {
+      // user: null,
       input: {
         firstname: "",
         lastname: "",
         email: "",
         password: "",
         confirmation_password: "",
-        close: "",
       },
     };
   },
+  computed: {
+    LoggedIn() {
+      return this.$store.getters.userLoggedIn;
+    },
+  },
+
   methods: {
     register() {
       if (
@@ -106,6 +127,48 @@ export default {
       ) {
         alert("Fill all the inputfield");
       } else if (this.valid()) {
+        let firstname = this.input.firstname;
+        let lastname = this.input.lastname;
+        let email = this.input.email;
+        let password = this.input.password;
+
+        // firebase
+        //   .auth()
+        //   .createUserWithEmailAndPassword(
+        //     /*firstname,
+        //      lastname, */
+        //     email,
+        //     password
+        //   )
+        //   .then((user) => {
+        //     const newUser = {
+        //       id: user.uid,
+        //       firstname: user.firstname,
+        //       lastname: user.lastname,
+        //       email: user.email,
+        //       password: user.password,
+        //     };
+        // console.log(cred.user);
+        //     this.$store.commit("setUser", newUser);
+        //   })
+        //   .catch((error) => {
+        //     console.log(error);
+        //   });
+        firebase
+          .auth()
+          .createUserWithEmailAndPassword(email, password)
+          .then((userCredential) => {
+            // Signed in
+            var user = userCredential.user;
+            // ...
+          })
+          .catch((error) => {
+            var errorCode = error.code;
+            var errorMessage = error.message;
+
+            //console.log(error);
+            // ..
+          });
         this.$bvModal.hide("modal_1");
 
         alert("You have been Register");

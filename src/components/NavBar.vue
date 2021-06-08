@@ -17,7 +17,7 @@
           </b-nav-item>
           <b-nav-item v-if="!LoggedIn" v-b-modal.my-modal_2> Login </b-nav-item>
           <b-nav-item v-if="LoggedIn">
-            <b-icon icon="person-fill"></b-icon> {{ getUser.email }}
+            <b-icon icon="person-fill"></b-icon> {{ getUser.uid }}
           </b-nav-item>
           <b-nav-item v-if="LoggedIn" @click="logOut"> Logout </b-nav-item>
 

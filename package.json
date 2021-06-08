@@ -17,6 +17,8 @@
     "axios": "^0.21.1",
     "bootstrap-vue": "^2.21.2",
     "core-js": "^3.6.5",
+    "firebase": "^8.6.5",
+    "firebaseui": "^4.8.0",
     "save": "^2.4.0",
     "vue": "^2.6.12",
     "vue-axios": "^3.2.4",

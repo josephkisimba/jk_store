@@ -39,6 +39,7 @@
 </template>
 
 <script>
+import firebase from "firebase/app";
 export default {
   name: "Login",
   data() {
@@ -62,11 +63,21 @@ export default {
       } else {
         let email = this.input.email;
         let password = this.input.password;
-        this.$store.commit("setUser", { email, password });
+        firebase
+          .auth()
+          .signInWithEmailAndPassword(email, password)
+          .then((user) => {
+            const newUser = {
+              id: user.uid,
+            };
+            this.$store.commit("setUser", newUser);
+          })
+          .catch((error) => {
+            console.log(error);
+            alert(error);
+          });
 
         this.$bvModal.hide("my-modal_2");
-
-        alert("Login successfull");
       }
     },
   },
