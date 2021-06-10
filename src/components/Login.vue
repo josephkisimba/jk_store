@@ -75,6 +75,7 @@ export default {
           .catch((error) => {
             console.log(error);
             alert(error);
+            this.$bvModal.show("my-modal_2");
           });
 
         this.$bvModal.hide("my-modal_2");

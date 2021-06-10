@@ -82,6 +82,7 @@
 <script>
 import firebase from "firebase/app";
 import "firebase/auth";
+import "firebase/firestore";
 
 var firebaseConfig = {
   apiKey: "AIzaSyBoWzvnEiow6wW0TRN_zXxlgINnKDoEPUQ",
@@ -93,14 +94,15 @@ var firebaseConfig = {
   measurementId: "G-7W2N3MHHSW",
 };
 // Initialize Firebase
-firebase.initializeApp(firebaseConfig);
-// firebase.analytics();
+var firestore = firebase.initializeApp(firebaseConfig);
+var db = firestore.firestore();
+// var firestore = firebase.firestore();
+// var db = firebase.firestore();
 
 export default {
   name: "Register",
   data() {
     return {
-      // user: null,
       input: {
         firstname: "",
         lastname: "",
@@ -132,6 +134,65 @@ export default {
         let email = this.input.email;
         let password = this.input.password;
 
+        //----------SIGNUP-------------------------------
+        firestore
+          .auth()
+          .createUserWithEmailAndPassword(email, password)
+          .then((userCredential) => {
+            // Signed in
+            var user = userCredential.user;
+            // ...
+          })
+          .catch((error) => {
+            var errorCode = error.code;
+            var errorMessage = error.message;
+
+            //console.log(error);
+            // ..
+          });
+        //------------------------------------------------
+
+        //-----------------------ADDING DATA TO DB------------------
+        db.collection("users")
+          .add({
+            firstname: firstname,
+            lastname: lastname,
+            email: email,
+          })
+          .then(function() {
+            console.log("saved");
+          })
+          .catch(function(error) {
+            console.log("erro", error);
+          });
+        //------------------------------------------------------------
+
+        //---------------------FEETCHING DATA  IN DB-----------------
+        db.collection("users")
+          .get()
+          .then((querySnapshot) => {
+            querySnapshot.forEach((doc) => {
+              console.log(`${doc.id} => ${doc.data()}`);
+            });
+          });
+        // usersRef
+        //   .get()
+        //   .then(function(doc) {
+        //     if (doc && doc.exists) {
+        //       const userData = doc.data();
+        //       console.log("Firestore data", userData);
+        //     }
+        //   })
+        //   .catch(function(error) {
+        //     console.log("erro", error);
+        //   });
+        //---------------------------------
+
+        this.$bvModal.hide("modal_1");
+
+        alert("You have been Register");
+
+        //===========================================================================
         // firebase
         //   .auth()
         //   .createUserWithEmailAndPassword(
@@ -154,28 +215,17 @@ export default {
         //   .catch((error) => {
         //     console.log(error);
         //   });
-        firebase
-          .auth()
-          .createUserWithEmailAndPassword(email, password)
-          .then((userCredential) => {
-            // Signed in
-            var user = userCredential.user;
-            // ...
-          })
-          .catch((error) => {
-            var errorCode = error.code;
-            var errorMessage = error.message;
-
-            //console.log(error);
-            // ..
-          });
-        this.$bvModal.hide("modal_1");
-
-        alert("You have been Register");
       } else {
         alert("password incorrect");
       }
     },
+
+    // userCollection() {
+    //   let firstname = this.input.firstname;
+    //   let lastname = this.input.lastname;
+    //   let email = this.input.email;
+    //   let password = this.input.password;
+    // },
     valid() {
       return this.input.password === this.input.confirmation_password;
     },
