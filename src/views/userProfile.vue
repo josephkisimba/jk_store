@@ -41,6 +41,9 @@
             type="email"
             placeholder="Enter your Email"
           ></b-form-input>
+          <b-button variant="success" class="mt-2">
+            CHANGE
+          </b-button>
         </b-col>
       </b-row>
     </b-card>
