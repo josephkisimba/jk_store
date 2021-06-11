@@ -16,10 +16,27 @@
             Register
           </b-nav-item>
           <b-nav-item v-if="!LoggedIn" v-b-modal.my-modal_2> Login </b-nav-item>
+
           <b-nav-item v-if="LoggedIn">
+            <b-dropdown variant="black">
+              <template #button-content>
+                <b-icon icon="person-fill"></b-icon>
+                {{ getUser.name }}
+              </template>
+              <b-dropdown-item-button>
+                <router-link class="text-dark" to="/Profile"
+                  >Profile</router-link
+                >
+              </b-dropdown-item-button>
+              <b-dropdown-item @click="logOut">Logout</b-dropdown-item>
+            </b-dropdown>
+          </b-nav-item>
+
+          <!-- <b-nav-item v-if="LoggedIn">
             <b-icon icon="person-fill"></b-icon> {{ getUser.name }}
           </b-nav-item>
           <b-nav-item v-if="LoggedIn" @click="logOut"> Logout </b-nav-item>
+          <b-nav-item v-if="LoggedIn" to="/profile"> Profile </b-nav-item> -->
 
           <b-nav-item>
             <div>
