@@ -56,29 +56,47 @@ export default {
       return this.$store.getters.userLoggedIn;
     },
   },
-  methods: {
-    login() {
-      if (this.input.email === "" || this.input.password === "") {
-        alert("please enter your email and your password");
-      } else {
-        let email = this.input.email;
-        let password = this.input.password;
-        firebase
-          .auth()
-          .signInWithEmailAndPassword(email, password)
-          .then((user) => {
-            const newUser = {
-              id: user.uid,
-            };
-            this.$store.commit("setUser", newUser);
-          })
-          .catch((error) => {
-            console.log(error);
-            alert(error);
-            this.$bvModal.show("my-modal_2");
-          });
 
-        this.$bvModal.hide("my-modal_2");
+  methods: {
+    async login() {
+      let user = null;
+      if (this.input.email === "" || this.input.password === "") {
+        alert("fill all the field");
+      } else {
+        user = await this.signIn(this.input.email, this.input.password);
+
+        if (user != null) {
+          this.$store.commit("setUser", user);
+
+          alert("Welcome");
+          this.$bvModal.hide("my-modal_2");
+          // this.$router.push("/product");
+        } else {
+          alert("check your email or password");
+        }
+      }
+    },
+
+    async signIn() {
+      let email = this.input.email;
+      let password = this.input.password;
+      try {
+        let userCredential = await firebase
+          .auth()
+          .signInWithEmailAndPassword(email, password);
+        let user = userCredential.user;
+
+        if (user) {
+          user = {
+            uid: user.uid,
+            firstname: user.firstname,
+            email: user.email,
+          };
+        }
+        return user;
+      } catch (e) {
+        console.log(e.message);
+        return null;
       }
     },
   },

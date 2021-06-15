@@ -146,15 +146,16 @@ export default {
           .catch((error) => {
             var errorCode = error.code;
             var errorMessage = error.message;
-
+            alert("RegisterError", error);
             //console.log(error);
             // ..
           });
         //------------------------------------------------
 
         //-----------------------ADDING DATA TO DB------------------
-        db.collection("users")
-          .add({
+        const userRef = db.collection("users").doc(email);
+        userRef
+          .set({
             firstname: firstname,
             lastname: lastname,
             email: email,
@@ -162,9 +163,10 @@ export default {
           .then(function() {
             console.log("saved");
           })
-          .catch(function(error) {
-            console.log("erro", error);
+          .then(function(error) {
+            console.log("error", error);
           });
+
         //------------------------------------------------------------
 
         //---------------------FEETCHING DATA  IN DB-----------------
@@ -175,17 +177,6 @@ export default {
               console.log(`${doc.id} => ${doc.data()}`);
             });
           });
-        // usersRef
-        //   .get()
-        //   .then(function(doc) {
-        //     if (doc && doc.exists) {
-        //       const userData = doc.data();
-        //       console.log("Firestore data", userData);
-        //     }
-        //   })
-        //   .catch(function(error) {
-        //     console.log("erro", error);
-        //   });
         //---------------------------------
 
         this.$bvModal.hide("modal_1");
@@ -193,39 +184,10 @@ export default {
         alert("You have been Register");
 
         //===========================================================================
-        // firebase
-        //   .auth()
-        //   .createUserWithEmailAndPassword(
-        //     /*firstname,
-        //      lastname, */
-        //     email,
-        //     password
-        //   )
-        //   .then((user) => {
-        //     const newUser = {
-        //       id: user.uid,
-        //       firstname: user.firstname,
-        //       lastname: user.lastname,
-        //       email: user.email,
-        //       password: user.password,
-        //     };
-        // console.log(cred.user);
-        //     this.$store.commit("setUser", newUser);
-        //   })
-        //   .catch((error) => {
-        //     console.log(error);
-        //   });
       } else {
         alert("password incorrect");
       }
     },
-
-    // userCollection() {
-    //   let firstname = this.input.firstname;
-    //   let lastname = this.input.lastname;
-    //   let email = this.input.email;
-    //   let password = this.input.password;
-    // },
     valid() {
       return this.input.password === this.input.confirmation_password;
     },
