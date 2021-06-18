@@ -39,12 +39,9 @@
             type="email"
             placeholder="Enter your Email"
           ></b-form-input>
-          <b-button @click="updateUserDetails" variant="success" class="mt-2">
-            CHANGE
-          </b-button>
         </b-col>
       </b-row>
-      <!-- <b-row class="my-1">
+      <b-row class="my-1">
         <b-col sm="4">
           <label for="input-lastname">Address</label>
         </b-col>
@@ -55,9 +52,11 @@
             v-model="input.address"
             placeholder="Enter your Address"
           ></b-form-input>
-          
+          <b-button @click="updateUserDetails" variant="success" class="mt-2">
+            CHANGE
+          </b-button>
         </b-col>
-      </b-row> -->
+      </b-row>
     </b-card>
   </div>
 </template>
@@ -73,10 +72,10 @@ export default {
   data() {
     return {
       input: {
-        firstname: "",
-        lastname: "",
-        email: "",
-        // address: "",
+        firstname: null,
+        lastname: null,
+        email: null,
+        address: null,
       },
     };
   },
@@ -86,35 +85,54 @@ export default {
       // console.log(this.getUser);
       return this.$store.getters.user;
     },
-    LoggedIn() {
-      return this.$store.getters.userLoggedIn;
-    },
   },
+
   methods: {
+    fetchUserData() {
+      var userRef = db.collection("users").doc(this.getUser.email);
+
+      userRef
+        .get()
+        .then((doc) => {
+          if (doc.exists) {
+            this.input = doc.data();
+            console.log("Document data:", doc.data());
+          } else {
+            // doc.data() will be undefined in this case
+            console.log("No such user!");
+          }
+        })
+        .catch((error) => {
+          console.log("Error getting document:", error);
+        });
+    },
+
     updateUserDetails() {
       let firstname = this.input.firstname;
       let lastname = this.input.lastname;
       let email = this.input.email;
-      // let address = this.input.address;
+      let address = this.input.address;
 
-      if (
-        this.input.firstname === "" ||
-        this.input.lastname === "" ||
-        this.input.email === "" ||
-        this.input.password === ""
-      ) {
-        alert("Fill all the inputfield");
-      } else {
-        db.collection("cities")
-          .doc(this.getUser.email)
-          .update({
-            firstname: firstname,
-            lastname: lastname,
-            email: email,
-            // address: address,
-          });
-      }
+      db.collection("users")
+        .doc(this.getUser.email)
+        .update({
+          firstname: firstname,
+          lastname: lastname,
+          email: email,
+          address: address,
+        })
+        .then((user) => {
+          user = firebase.auth().currentUser;
+          console.log("Current user", this.currentUser);
+          user.updateEmail(this.input.email);
+          console.log("Document successfully updated!");
+        });
+      alert("Details updated");
     },
+  },
+
+  mounted() {
+    this.fetchUserData();
   },
 };
 </script>
