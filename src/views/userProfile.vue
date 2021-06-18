@@ -10,6 +10,7 @@
             id="input-firstname"
             size="sm"
             v-model="input.firstname"
+            value="getFirstname"
             placeholder="Enter your FirstName"
           ></b-form-input>
         </b-col>
@@ -23,6 +24,7 @@
             id="input-lastname"
             size="sm"
             v-model="input.lastname"
+            value="getLastname"
             placeholder="Enter your LastName"
           ></b-form-input>
         </b-col>
@@ -37,6 +39,7 @@
             size="sm"
             v-model="input.email"
             type="email"
+            value="getEmail"
             placeholder="Enter your Email"
           ></b-form-input>
         </b-col>
@@ -50,6 +53,7 @@
             id="input-address"
             size="sm"
             v-model="input.address"
+            value="getAddress"
             placeholder="Enter your Address"
           ></b-form-input>
           <b-button @click="updateUserDetails" variant="success" class="mt-2">
@@ -85,8 +89,24 @@ export default {
       // console.log(this.getUser);
       return this.$store.getters.user;
     },
-  },
+    LoggedIn() {
+      return this.$store.getters.userLoggedIn;
+    },
+    getFirstname() {
+      return this.input.firstname;
+    },
 
+    getLastname() {
+      return this.input.lastname;
+    },
+
+    getEmail() {
+      return this.input.email;
+    },
+    getAddress() {
+      return this.input.address;
+    },
+  },
   methods: {
     fetchUserData() {
       var userRef = db.collection("users").doc(this.getUser.email);
@@ -99,7 +119,7 @@ export default {
             console.log("Document data:", doc.data());
           } else {
             // doc.data() will be undefined in this case
-            console.log("No such user!");
+            console.log("No such document!");
           }
         })
         .catch((error) => {
@@ -123,14 +143,11 @@ export default {
         })
         .then((user) => {
           user = firebase.auth().currentUser;
-          console.log("Current user", this.currentUser);
           user.updateEmail(this.input.email);
           console.log("Document successfully updated!");
         });
-      alert("Details updated");
     },
   },
-
   mounted() {
     this.fetchUserData();
   },
