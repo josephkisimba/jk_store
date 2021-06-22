@@ -96,8 +96,6 @@ var firebaseConfig = {
 // Initialize Firebase
 var firestore = firebase.initializeApp(firebaseConfig);
 var db = firestore.firestore();
-// var firestore = firebase.firestore();
-// var db = firebase.firestore();
 
 export default {
   name: "Register",
@@ -163,8 +161,10 @@ export default {
           .then(function() {
             console.log("saved");
           })
-          .then(function(error) {
-            console.log("error", error);
+          .catch((error) => {
+            // An error occurred
+            // ...
+            console.log("Error Register", error);
           });
 
         //------------------------------------------------------------

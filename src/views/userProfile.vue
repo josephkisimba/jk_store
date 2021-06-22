@@ -108,45 +108,88 @@ export default {
     },
   },
   methods: {
-    fetchUserData() {
+    async fetchUserData() {
       var userRef = db.collection("users").doc(this.getUser.email);
-
-      userRef
-        .get()
-        .then((doc) => {
-          if (doc.exists) {
-            this.input = doc.data();
-            console.log("Document data:", doc.data());
-          } else {
-            // doc.data() will be undefined in this case
-            console.log("No such document!");
-          }
-        })
-        .catch((error) => {
-          console.log("Error getting document:", error);
-        });
+      console.log("UserRef0", userRef);
+      var doc = await userRef.get();
+      console.log("doc", doc);
+      if (doc.exists) {
+        this.input = doc.data();
+      }
     },
+    // fetchUserData() {
+    //   var userRef = db.collection("users").doc(this.getUser.email);
 
-    updateUserDetails() {
-      let firstname = this.input.firstname;
-      let lastname = this.input.lastname;
-      let email = this.input.email;
-      let address = this.input.address;
+    //   userRef
+    //     .get()
+    //     .then((doc) => {
+    //       if (doc.exists) {
+    //         this.input = doc.data();
+    //         console.log("Document data:", doc.data());
+    //       } else {
+    //         // doc.data() will be undefined in this case
+    //         console.log("No such document!");
+    //       }
+    //     })
+    //     .catch((error) => {
+    //       console.log("Error getting document:", error);
+    //     });
+    // },
+    async updateUserDetails() {
+      let userRef = await db.collection("users").doc(this.getUser.email);
+      console.log("UserRef 1", userRef);
+      userRef.update({
+        firstname: this.input.firstname,
+        lastname: this.input.lastname,
+        email: this.input.email,
+        address: this.input.address,
+      });
+      console.log("UserRef profile", userRef);
 
-      db.collection("users")
-        .doc(this.getUser.email)
-        .update({
-          firstname: firstname,
-          lastname: lastname,
-          email: email,
-          address: address,
-        })
-        .then((user) => {
-          user = firebase.auth().currentUser;
-          user.updateEmail(this.input.email);
-          console.log("Document successfully updated!");
-        });
+      let user = await firebase.auth().currentUser;
+      console.log("User pro", user);
+      // user.updateEmail(this.input.email);
+      console.log("input.email", this.input.email);
+      // user.updateProfile({
+      //   displayName: this.input.firstname + " " + this.input.lastname,
+      // });
+      console.log("update finished");
+      alert("Updated");
     },
+    // updateUserDetails() {
+    //   let firstname = this.input.firstname;
+    //   let lastname = this.input.lastname;
+    //   let email = this.input.email;
+    //   let address = this.input.address;
+
+    //   db.collection("users")
+    //     .doc(this.getUser.email)
+    //     .update({
+    //       firstname: firstname,
+    //       lastname: lastname,
+    //       email: email,
+    //       address: address,
+    //     })
+    //     .then(() => {
+    //       const user = firebase.auth().currentUser;
+    //       console.log("User", user);
+    //       console.log("input", this.input.email);
+    //       user
+    //         .updateEmail(this.input.email)
+    //         .then(() => {
+    //           // Update successful
+    //           // ...
+    //           console.log("Email updated");
+    //         })
+    //         .catch((error) => {
+    //           // An error occurred
+    //           // ...
+    //           console.log("Error Email", error);
+    //         });
+
+    //       console.log("Data successfully updated!");
+    //     });
+    // },
   },
   mounted() {
     this.fetchUserData();

@@ -89,10 +89,13 @@ export default {
         if (user) {
           user = {
             uid: user.uid,
-            firstname: user.firstname,
+
+            firstname: user.displayName,
             email: user.email,
           };
+          console.log("userLog", user.uid);
         }
+        console.log("userLog", user);
         return user;
       } catch (e) {
         console.log(e.message);
