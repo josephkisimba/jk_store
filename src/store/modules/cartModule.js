@@ -1,3 +1,11 @@
+import firebase from "firebase/app";
+import "firebase/auth";
+import "firebase/firestore";
+
+// Initialize Firebase
+
+var db = firebase.firestore();
+
 export default {
     state: () => ({
         cart: [],
@@ -24,6 +32,9 @@ export default {
             } else {
                 item.quantity += 1;
             }
+            db.collection("cart")
+                .doc(`${product.id}`)
+                .set(product);
         },
 
         increment(state, id) {
@@ -32,6 +43,9 @@ export default {
             if (item) {
                 item.quantity += 1;
             }
+            db.collection("cart")
+                .doc(`${id}`)
+                .update("quantity", firebase.firestore.FieldValue.increment(1));
         },
 
         decrement(state, id) {
@@ -42,11 +56,17 @@ export default {
             } else if (item.quantity === 1) {
                 item.quantity = 1;
             }
+            db.collection("cart")
+                .doc(`${id}`)
+                .update("quantity", firebase.firestore.FieldValue.increment(-1));
         },
         removeFromCart(state, id) {
             state.cart = state.cart.filter((itemCart) => {
                 return itemCart.id !== id;
             });
+            db.collection("cart")
+                .doc(`${id}`)
+                .delete();
         },
         emptyCart(state, id) {
             state.cart = state.cart.filter((itemCart) => {
