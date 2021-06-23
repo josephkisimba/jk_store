@@ -69,6 +69,7 @@
 import firebase from "firebase/app";
 import "firebase/auth";
 import "firebase/firestore";
+import swal from "sweetalert";
 
 var db = firebase.firestore();
 
@@ -86,7 +87,6 @@ export default {
 
   computed: {
     getUser() {
-      // console.log(this.getUser);
       return this.$store.getters.user;
     },
     LoggedIn() {
@@ -116,6 +116,7 @@ export default {
       if (doc.exists) {
         this.input = doc.data();
       }
+      console.log("docData", doc.data());
     },
     // fetchUserData() {
     //   var userRef = db.collection("users").doc(this.getUser.email);
@@ -148,13 +149,13 @@ export default {
 
       let user = await firebase.auth().currentUser;
       console.log("User pro", user);
-      // user.updateEmail(this.input.email);
       console.log("input.email", this.input.email);
-      // user.updateProfile({
-      //   displayName: this.input.firstname + " " + this.input.lastname,
-      // });
       console.log("update finished");
-      alert("Updated");
+      swal({
+        text: "Details Updated",
+        icon: "success",
+        button: "OK",
+      });
     },
     // updateUserDetails() {
     //   let firstname = this.input.firstname;

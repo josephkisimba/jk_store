@@ -83,6 +83,7 @@
 import firebase from "firebase/app";
 import "firebase/auth";
 import "firebase/firestore";
+import swal from "sweetalert";
 
 var firebaseConfig = {
   apiKey: "AIzaSyBoWzvnEiow6wW0TRN_zXxlgINnKDoEPUQ",
@@ -125,7 +126,11 @@ export default {
         this.input.password === "" ||
         this.confirmation_password === ""
       ) {
-        alert("Fill all the inputfield");
+        swal({
+          text: "complete all the input field",
+          icon: "error",
+          button: "OK",
+        });
       } else if (this.valid()) {
         let firstname = this.input.firstname;
         let lastname = this.input.lastname;
@@ -181,11 +186,19 @@ export default {
 
         this.$bvModal.hide("modal_1");
 
-        alert("You have been Register");
+        swal({
+          text: "You have been register",
+          icon: "success",
+          button: "OK",
+        });
 
         //===========================================================================
       } else {
-        alert("password incorrect");
+        swal({
+          text: "Password incorrect",
+          icon: "error",
+          button: "OK",
+        });
       }
     },
     valid() {

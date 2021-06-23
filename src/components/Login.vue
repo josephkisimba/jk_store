@@ -40,6 +40,7 @@
 
 <script>
 import firebase from "firebase/app";
+import swal from "sweetalert";
 export default {
   name: "Login",
   data() {
@@ -52,7 +53,6 @@ export default {
   },
   computed: {
     LoggedIn() {
-      // console.log("getLogin", this.LoggedIn);
       return this.$store.getters.userLoggedIn;
     },
   },
@@ -67,12 +67,18 @@ export default {
 
         if (user != null) {
           this.$store.commit("setUser", user);
-
-          alert("Welcome");
           this.$bvModal.hide("my-modal_2");
-          // this.$router.push("/product");
+          swal({
+            text: "Loggin successful",
+            icon: "success",
+            button: "OK",
+          });
         } else {
-          alert("check your email or password");
+          swal({
+            text: "check your email or password",
+            icon: "error",
+            button: "OK",
+          });
         }
       }
     },
@@ -89,7 +95,6 @@ export default {
         if (user) {
           user = {
             uid: user.uid,
-
             firstname: user.displayName,
             email: user.email,
           };
