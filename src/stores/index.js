@@ -1,7 +1,7 @@
 import Vue from "vue";
 import Vuex from "vuex";
-import cartModule from "./modules/cartModule";
-import authentication from "./modules/authentication";
+import { cartModule } from "./cartModule";
+import { authentication } from "./authentication";
 import createPersistedState from "vuex-persistedstate";
 
 Vue.use(Vuex);

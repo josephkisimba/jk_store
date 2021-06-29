@@ -2,7 +2,7 @@ import Vue from "vue";
 import "./plugins/bootstrap-vue";
 import App from "./App.vue";
 import router from "./router";
-import store from "./store";
+import store from "./stores";
 import firebase from "firebase/app";
 import "firebase/auth";
 import { BootstrapVue, BootstrapVueIcons } from "bootstrap-vue";

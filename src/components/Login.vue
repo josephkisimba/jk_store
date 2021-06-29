@@ -64,6 +64,8 @@ export default {
         alert("fill all the field");
       } else {
         user = await this.signIn(this.input.email, this.input.password);
+        console.log("this.input.email", this.input.email);
+        console.log("this.input.email", this.input.password);
 
         if (user != null) {
           this.$store.commit("setUser", user);
@@ -86,11 +88,15 @@ export default {
     async signIn() {
       let email = this.input.email;
       let password = this.input.password;
+      console.log("Start login");
       try {
+        console.log("Start ");
         let userCredential = await firebase
           .auth()
           .signInWithEmailAndPassword(email, password);
+        console.log("userCredential", userCredential);
         let user = userCredential.user;
+        console.log("user", user);
 
         if (user) {
           user = {

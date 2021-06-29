@@ -64,7 +64,12 @@ export default {
   methods: {
     removeItem() {
       this.$store.commit("removeFromCart", this.cartItem.id);
-      alert("Product removed from cart");
+      // alert("Product removed from cart");
+      swal({
+        text: "Product removed from cart",
+        icon: "success",
+        button: "OK",
+      });
     },
     incrementQuantity() {
       this.$store.commit("increment", this.cartItem.id);

@@ -144,6 +144,7 @@ export default {
           .then((userCredential) => {
             // Signed in
             var user = userCredential.user;
+            console.log("userRegister", user);
             // ...
           })
           .catch((error) => {

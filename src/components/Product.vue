@@ -46,7 +46,11 @@ export default {
 
         console.log("product", this.$store.state.cart);
 
-        alert("Product added to cart");
+        swal({
+          text: "Product added to cart",
+          icon: "success",
+          button: "OK",
+        });
       } else {
         this.$bvModal.show("my-modal_2");
         // console.log("login");
