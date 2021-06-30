@@ -63,7 +63,7 @@ export default {
   },
   methods: {
     removeItem() {
-      this.$store.commit("removeFromCart", this.cartItem.id);
+      this.$store.commit("removeFromCart", this.cartItem);
       // alert("Product removed from cart");
       swal({
         text: "Product removed from cart",

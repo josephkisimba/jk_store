@@ -1,7 +1,7 @@
 import firebase from "firebase/app";
 import "firebase/auth";
 import "firebase/firestore";
-import { addToCartDB } from "../firebase";
+// import { addToCartDB } from "../firebase";
 import { authentication } from "./authentication";
 var db = firebase.firestore();
 const getUser = authentication.getters.user;
@@ -26,7 +26,11 @@ export const cartModule = {
         },
     },
     mutations: {
-        async addToCart(state, product) {
+        // productListInCart(state, product) {
+        //     state.cart.splice(0, state.cart.length, ...product);
+        //     // console.log(product.id);
+        // },
+        addToCart(state, product) {
             const item = state.cart.find((data) => data.id === product.id);
 
             if (!item) {
@@ -35,51 +39,30 @@ export const cartModule = {
             } else {
                 item.quantity += 1;
             }
-            // addToCartDB();
-            console.log("END LS");
 
-            // addToCartDB();
-
-            // if (userLoggedIn === true) {
-            //     console.log("start FB");
-            //     let cartUserRef = db.collection("carts").doc(getUser.email);
-
-            //     console.log("cartUserRef", cartUserRef);
-            //     cartUserRef.get().then((doc) => {
-            //         let cart = null;
-            //         if (doc.exists) {
-            //             try {
-            //                 // console.log("saving to user cart");
-            //                 cart = { cart: this.cartProducts };
-
-            //                 cartUserRef.set(cart);
-            //             } catch (e) {
-            //                 console.log(e);
-            //             }
-            //         } else {
-            //             // console.log("create user cart");
-            //             products = { items: this.cartProducts };
-            //             cartUserRef.set(cart);
-            //         }
-            //     });
-            // }
             if (userLoggedIn) {
-                // db.collection('cart').doc(`${product.id}`).set(product, { merge: true })
-                let cartUserRef = db.collection("cart").doc(`${product.id}`);
-                cartUserRef.set(product, { merge: true }).then(() => {
-                    console.log("productDB", product);
+                console.log("start FB");
+                let cartUserRef = db.collection("carts").doc(getUser.email);
+
+                console.log("cartUserRef", cartUserRef);
+                cartUserRef.get().then((doc) => {
+                    let products = null;
+                    if (doc.exists) {
+                        try {
+                            console.log("saving to user cart");
+                            products = { cart: this.getters.cartProducts };
+
+                            cartUserRef.set(products);
+                        } catch (e) {
+                            console.log(e);
+                        }
+                    } else {
+                        console.log("create user cart");
+                        products = { items: this.getters.cartProducts };
+                        cartUserRef.set(products);
+                    }
                 });
-                db.collection("cart")
-                    .get()
-                    .then((querySnapshot) => {
-                        querySnapshot.forEach((doc) => {
-                            console.log(`${doc.id} => ${doc.data()}`);
-                        });
-                    });
             }
-            //console.log("Start addToCartDB");
-            // addToCartDB();
-            //console.log("End saving");
 
             //=============================================================================
         }, //end add
@@ -91,9 +74,9 @@ export const cartModule = {
             if (item) {
                 item.quantity += 1;
             }
-            db.collection("cart")
-                .doc(`${id}`)
-                .update("quantity", firebase.firestore.FieldValue.increment(1));
+            // db.collection("cart")
+            //     .doc(`${id}`)
+            //     .update("quantity", firebase.firestore.FieldValue.increment(1));
         }, //END INCRMENT
 
         //================================START DECREMENT========================================
@@ -106,19 +89,43 @@ export const cartModule = {
             } else if (item.quantity === 1) {
                 item.quantity = 1;
             }
-            db.collection("cart")
-                .doc(`${id}`)
-                .update("quantity", firebase.firestore.FieldValue.increment(-1));
+            // db.collection("cart")
+            //     .doc(`${id}`)
+            //     .update("quantity", firebase.firestore.FieldValue.increment(-1));
         }, //END DECREMENT
 
         //======================START REMOVE====================
-        removeFromCart(state, id) {
-            state.cart = state.cart.filter((itemCart) => {
-                return itemCart.id !== id;
-            });
-            db.collection("cart")
-                .doc(`${id}`)
-                .delete();
+        removeFromCart(state, product) {
+            let findProductInCart = state.cart.find((data) => data.id === product.id);
+
+            if (findProductInCart) {
+                state.cart.splice(state.cart.indexOf(findProductInCart), 1);
+            }
+
+            // if (userLoggedIn) {
+            //     console.log("start removing FB");
+            //     let cartUserRef = db.collection("carts").doc(getUser.email);
+            //     console.log("cartUserRef", cartUserRef);
+
+            //     cartUserRef.get().then((doc) => {
+            //         let products = null;
+
+            //         try {
+            //             if (doc.exists) {
+            //                 console.log("saving changes in user cart");
+            //                 products = { cart: this.getters.cartProducts };
+            //                 cartUserRef.set(products);
+            //             }
+            //         } catch (e) {
+            //             console.log(e);
+            //         }
+            //     });
+            // }
+
+            if (userLoggedIn) {
+                let cartUserRef = db.collection("carts").doc(getUser.email);
+                cartUserRef.delete();
+            }
         }, // END REMOVE
 
         emptyCart(state, id) {
@@ -127,68 +134,4 @@ export const cartModule = {
             });
         },
     },
-
-    // async addToCartDB() {
-    //     console.log("Start addToCartDB");
-    //     //if (userLoggedIn == true) {
-    //     console.log("start checking in DB");
-    //     let cartUserRef = db.collection("carts").doc(getUser.email);
-    //     console.log("cartUserRef", cartUserRef);
-    //     let doc = await cartUserRef.get();
-    //     console.log("doc", doc);
-    //     let products = null;
-    //     console.log("products", products);
-
-    //     if (doc.exists) {
-    //         // If user cart exists
-    //         try {
-    //             console.log("saving to user cart");
-    //             products = { Products: this.cartProducts };
-
-    //             cartUserRef.set(products);
-    //         } catch (e) {
-    //             console.log(e);
-    //         }
-    //     } else {
-    //         console.log("create user cart");
-    //         products = { items: this.cartProducts };
-    //         cartUserRef.set(products);
-    //     }
-    //     // }
-    // },
 };
-
-// export const addToCartDB = async() => {
-//     console.log("Start addToCartDB");
-//     console.log("userLoggedIn", userLoggedIn);
-//     if (userLoggedIn) {
-//         console.log("start checking in DB");
-//         console.log("getUser", getUser);
-//         let cartUserRef = db.collection("carts").doc(getUser.email);
-//         console.log("cartUserRef", cartUserRef);
-//         let doc = await cartUserRef.get();
-//         console.log("doc", doc);
-//         let products = null;
-//         console.log("products", products);
-//         // console.log("doc.exists", doc.exists);
-
-//         if (doc.exists) {
-//             console.log("doc.exists", doc.exists);
-//             // If user cart exists
-//             try {
-//                 console.log("saving to user cart");
-//                 products = { cart: this.getters.cartProducts };
-
-//                 cartUserRef.set(products);
-//             } catch (e) {
-//                 console.log(e);
-//             }
-//         } else {
-//             console.log("create user cart");
-//             products = { items: this.getters.cartProducts };
-//             cartUserRef.set(products);
-//         }
-//     } else {
-//         console.log("NOT USER LOGGEDIN");
-//     }
-// };

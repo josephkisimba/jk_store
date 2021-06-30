@@ -17,32 +17,29 @@ const userLoggedIn = authentication.getters.userLoggedIn;
 
 export const addToCartDB = async() => {
     const getProductsInCart = cartModule.getters.cartProducts;
-    // console.log("cartModule", cartModule.getters.cartProducts);
+    console.log("cartModule", cartModule.getters.cartProducts);
     if (userLoggedIn) {
-        console.log("DB check");
+        console.log("start FB");
         let cartUserRef = db.collection("carts").doc(getUser.email);
+
         console.log("cartUserRef", cartUserRef);
-        let doc = await cartUserRef.get();
-        console.log("doc", doc);
-        let products = null;
+        cartUserRef.get().then((doc) => {
+            let products = null;
+            if (doc.exists) {
+                try {
+                    console.log("saving to user cart");
+                    products = { cart: this.getters.cartProducts };
 
-        if (doc.exists) {
-            try {
-                console.log("user cart saving");
-                products = { cart: getProductsInCart };
-                console.log("products", products);
-
+                    cartUserRef.set(products);
+                } catch (e) {
+                    console.log(e);
+                }
+            } else {
+                console.log("create user cart");
+                products = { items: this.getters.cartProducts };
                 cartUserRef.set(products);
-            } catch (e) {
-                console.log(e);
             }
-        }
-        // else {
-        //     console.log("user cart ");
-        //     products = { cart: getProductsInCart };
-        //     console.log("products0", products);
-        //     cartUserRef.set(products);
-        // }
+        });
     }
 };
 
