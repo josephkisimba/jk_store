@@ -2,25 +2,23 @@ import firebase from "firebase/app";
 import "firebase/auth";
 import "firebase/storage";
 import "firebase/firestore";
-import { cartModule } from "./stores/cartModule";
-import { authentication } from "./stores/authentication";
+import { store } from "./stores";
 
 // const auth = firebase.auth();
 // const storage = firebase.storage();
 const db = firebase.firestore();
 // const fs = firebase;
 
-const getUser = authentication.getters.user;
-const userLoggedIn = authentication.getters.userLoggedIn;
-// const getProductsInCart = cartModule.getters.cartProducts;
-//
+// const getUser = store.getters.cartModule;
+// const userLoggedIn = store.getters.userLoggedIn;
+// const getProductsInCart = store.getters.cartProducts;
 
-export const addToCartDB = async() => {
-    const getProductsInCart = cartModule.getters.cartProducts;
-    console.log("cartModule", cartModule.getters.cartProducts);
+export const addToCartDB = () => {
     if (userLoggedIn) {
         console.log("start FB");
         let cartUserRef = db.collection("carts").doc(getUser.email);
+        console.log("getUser", getUser);
+        console.log("getUserEmail", authentication.getters.user);
 
         console.log("cartUserRef", cartUserRef);
         cartUserRef.get().then((doc) => {
@@ -28,7 +26,7 @@ export const addToCartDB = async() => {
             if (doc.exists) {
                 try {
                     console.log("saving to user cart");
-                    products = { cart: this.getters.cartProducts };
+                    products = { cart: getProductsInCart };
 
                     cartUserRef.set(products);
                 } catch (e) {
@@ -36,10 +34,12 @@ export const addToCartDB = async() => {
                 }
             } else {
                 console.log("create user cart");
-                products = { items: this.getters.cartProducts };
+                products = { items: getProductsInCart };
                 cartUserRef.set(products);
             }
         });
+    } else {
+        console.log("user not LoggedIn");
     }
 };
 

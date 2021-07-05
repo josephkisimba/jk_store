@@ -118,7 +118,7 @@ export default {
   },
 
   methods: {
-    register() {
+    async register() {
       if (
         this.input.firstname === "" ||
         this.input.lastname === "" ||
@@ -137,53 +137,36 @@ export default {
         let email = this.input.email;
         let password = this.input.password;
 
-        //----------SIGNUP-------------------------------
-        firestore
+        console.log("check");
+
+        let user = db.collection("users").doc(email);
+        console.log("user", user);
+
+        user.get().then((doc) => {
+          let userFound = doc.data();
+          console.log("userFound", userFound);
+
+          if (userFound) {
+            return null;
+          }
+        });
+
+        console.log("Saving cred");
+        let userSigninUp = firestore
           .auth()
-          .createUserWithEmailAndPassword(email, password)
-          .then((userCredential) => {
-            // Signed in
-            var user = userCredential.user;
-            console.log("userRegister", user);
-            // ...
-          })
-          .catch((error) => {
-            var errorCode = error.code;
-            var errorMessage = error.message;
-            alert("RegisterError", error);
-            //console.log(error);
-            // ..
-          });
-        //------------------------------------------------
+          .createUserWithEmailAndPassword(email, password);
+        // userSigninUp.user.updateProfile({
+        //   displayName: firstname + " " + lastname,
+        // });
+        console.log("End");
 
-        //-----------------------ADDING DATA TO DB------------------
-        const userRef = db.collection("users").doc(email);
-        userRef
-          .set({
-            firstname: firstname,
-            lastname: lastname,
-            email: email,
-          })
-          .then(function() {
-            console.log("saved");
-          })
-          .catch((error) => {
-            // An error occurred
-            // ...
-            console.log("Error Register", error);
-          });
-
-        //------------------------------------------------------------
-
-        //---------------------FEETCHING DATA  IN DB-----------------
-        db.collection("users")
-          .get()
-          .then((querySnapshot) => {
-            querySnapshot.forEach((doc) => {
-              console.log(`${doc.id} => ${doc.data()}`);
-            });
-          });
-        //---------------------------------
+        console.log("Start creating userProfile");
+        let userRef = db.collection("users").doc(email);
+        userRef.set({
+          firstname: firstname,
+          lastname: lastname,
+          email: email,
+        });
 
         this.$bvModal.hide("modal_1");
 

@@ -108,34 +108,34 @@ export default {
     },
   },
   methods: {
-    async fetchUserData() {
-      var userRef = db.collection("users").doc(this.getUser.email);
-      console.log("UserRef0", userRef);
-      var doc = await userRef.get();
-      console.log("doc", doc);
-      if (doc.exists) {
-        this.input = doc.data();
-      }
-      console.log("docData", doc.data());
-    },
-    // fetchUserData() {
+    // async fetchUserData() {
     //   var userRef = db.collection("users").doc(this.getUser.email);
-
-    //   userRef
-    //     .get()
-    //     .then((doc) => {
-    //       if (doc.exists) {
-    //         this.input = doc.data();
-    //         console.log("Document data:", doc.data());
-    //       } else {
-    //         // doc.data() will be undefined in this case
-    //         console.log("No such document!");
-    //       }
-    //     })
-    //     .catch((error) => {
-    //       console.log("Error getting document:", error);
-    //     });
+    //   console.log("UserRef0", userRef);
+    //   var doc = await userRef.get();
+    //   console.log("doc", doc);
+    //   if (doc.exists) {
+    //     this.input = doc.data();
+    //   }
+    //   console.log("docData", doc.data());
     // },
+    fetchUserData() {
+      var userRef = db.collection("users").doc(this.getUser.email);
+
+      userRef
+        .get()
+        .then((doc) => {
+          if (doc.exists) {
+            this.input = doc.data();
+            console.log("Document data:", doc.data());
+          } else {
+            // doc.data() will be undefined in this case
+            console.log("No such document!");
+          }
+        })
+        .catch((error) => {
+          console.log("Error getting document:", error);
+        });
+    },
     async updateUserDetails() {
       let userRef = await db.collection("users").doc(this.getUser.email);
       console.log("UserRef 1", userRef);

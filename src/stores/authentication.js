@@ -32,10 +32,8 @@
 //     getters,
 //     mutations,
 // };
-import { cartModule } from "./cartModule";
 
-// const getProduct = cartModule.getters.cartProducts;
-export const authentication = {
+export default {
     state: () => ({
         user: null,
     }),
