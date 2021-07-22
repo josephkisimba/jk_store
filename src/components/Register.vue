@@ -116,9 +116,9 @@ export default {
       return this.$store.getters.userLoggedIn;
     },
   },
-
+  //===============================================================
   methods: {
-    async register() {
+    register() {
       if (
         this.input.firstname === "" ||
         this.input.lastname === "" ||
@@ -126,64 +126,84 @@ export default {
         this.input.password === "" ||
         this.confirmation_password === ""
       ) {
-        swal({
-          text: "complete all the input field",
-          icon: "error",
-          button: "OK",
-        });
+        console.log("Fill all the input field");
       } else if (this.valid()) {
         let firstname = this.input.firstname;
         let lastname = this.input.lastname;
         let email = this.input.email;
         let password = this.input.password;
 
-        console.log("check");
+        console.log("CHECKING");
 
         let user = db.collection("users").doc(email);
-        console.log("user", user);
 
         user.get().then((doc) => {
           let userFound = doc.data();
-          console.log("userFound", userFound);
-
           if (userFound) {
             return null;
           }
         });
-
-        console.log("Saving cred");
-        let userSigninUp = firestore
+        console.log("Saving");
+        let userSignIn = firebase
           .auth()
           .createUserWithEmailAndPassword(email, password);
-        // userSigninUp.user.updateProfile({
-        //   displayName: firstname + " " + lastname,
-        // });
-        console.log("End");
 
-        console.log("Start creating userProfile");
+        console.log("create profile");
         let userRef = db.collection("users").doc(email);
+
         userRef.set({
           firstname: firstname,
           lastname: lastname,
           email: email,
+          id: this.generateUCID(),
         });
 
+        let userProf = firebase.auth().currentUser;
+        console.log("userProf", userProf);
+        userProf.updateProfile({
+          displayName: firstname + " " + lastname,
+        });
         this.$bvModal.hide("modal_1");
-
         swal({
-          text: "You have been register",
           icon: "success",
-          button: "OK",
+          text: "Welcome",
+          button: "ok",
         });
 
-        //===========================================================================
+        var userFetched = db.collection("users").doc(email);
+
+        userFetched
+          .get()
+          .then((doc) => {
+            if (doc.exists) {
+              let found = doc.data();
+              console.log("Document data:", found);
+              console.log("ID:", found.id);
+            } else {
+              // doc.data() will be undefined in this case
+              console.log("No such document!");
+            }
+          })
+          .catch((error) => {
+            console.log("Error getting document:", error);
+          });
       } else {
-        swal({
-          text: "Password incorrect",
-          icon: "error",
-          button: "OK",
-        });
+        alert("password incorrect");
       }
+    },
+    generateUCID() {
+      console.log("Starte generating UUID");
+      let d = new Date().getTime();
+      let ucid = "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(
+        /[xy]/g,
+        function(c) {
+          let r = (d + Math.random() * 16) % 16 | 0;
+          d = Math.floor(d / 16);
+          return (c === "x" ? r : (r & 0x3) | 0x8).toString(16);
+        }
+      );
+      console.log("UCID", ucid);
+      return ucid;
     },
     valid() {
       return this.input.password === this.input.confirmation_password;

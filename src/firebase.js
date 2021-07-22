@@ -1,16 +1,19 @@
+import { store } from "./store/authentication";
 import firebase from "firebase/app";
 import "firebase/auth";
 import "firebase/storage";
 import "firebase/firestore";
-import { store } from "./stores";
 
+console.log("store", store);
 // const auth = firebase.auth();
 // const storage = firebase.storage();
 const db = firebase.firestore();
 // const fs = firebase;
 
 // const getUser = store.getters.cartModule;
+// console.log("getUser", getUser);
 // const userLoggedIn = store.getters.userLoggedIn;
+// console.log("userLoggedIn", userLoggedIn);
 // const getProductsInCart = store.getters.cartProducts;
 
 export const addToCartDB = () => {

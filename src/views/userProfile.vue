@@ -108,16 +108,6 @@ export default {
     },
   },
   methods: {
-    // async fetchUserData() {
-    //   var userRef = db.collection("users").doc(this.getUser.email);
-    //   console.log("UserRef0", userRef);
-    //   var doc = await userRef.get();
-    //   console.log("doc", doc);
-    //   if (doc.exists) {
-    //     this.input = doc.data();
-    //   }
-    //   console.log("docData", doc.data());
-    // },
     fetchUserData() {
       var userRef = db.collection("users").doc(this.getUser.email);
 

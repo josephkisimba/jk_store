@@ -62,16 +62,15 @@ export default {
       let user = null;
       if (this.input.email == "" || this.input.password == "") {
         swal({
-          text: "Fill all the imputfield",
           icon: "error",
-          button: "OK",
+          text: "Check you credentials!!",
+          button: "ok",
         });
       } else {
-        user = await this.userSignIn(this.input.email, this.input.password);
+        user = await this.userSigningIn(this.input.email, this.input.password);
 
         if (user != null) {
           this.$store.commit("setUser", user);
-          console.log("userP", user);
           this.$bvModal.hide("my-modal_2");
 
           swal({
@@ -80,87 +79,40 @@ export default {
             button: "ok",
           });
         } else {
-          Toast.fire({
+          swal({
             icon: "error",
-            text: "Please check your email or password ",
+            text: "Couldn't authenticate Please check your email or password ",
             button: "ok",
           });
         }
       }
     },
-    async userSignIn() {
-      let email = this.input.email;
-      let password = this.input.password;
+
+    async userSigningIn(email, password) {
       try {
-        let userSigninIn = await firebase
+        let userCredential = await firebase
           .auth()
           .signInWithEmailAndPassword(email, password);
-        const user = userSigninIn.user;
 
+        let user = userCredential.user;
+
+        //===========================================================
         if (user) {
+          // User Profile
           user = {
-            firstname: user.displayName,
+            name: user.displayName,
             email: user.email,
             uid: user.uid,
           };
         }
+        //======================================================
+        console.log("userLog", user);
         return user;
       } catch (error) {
-        console.log("ErrorMessage", error.message);
+        console.log(error.message);
         return null;
       }
     },
-
-    // async login() {
-    //   let user = null;
-    //   if (this.input.email === "" || this.input.password === "") {
-    //     alert("fill all the field");
-    //   } else {
-    //     let email = this.input.email;
-    //     let password = this.input.password;
-    //     console.log("Start login");
-    //     try {
-    //       console.log("Start ");
-    //       let userCredential = await firebase
-    //         .auth()
-    //         .signInWithEmailAndPassword(email, password);
-    //       console.log("userCredential", userCredential);
-
-    //       const user = userCredential.user;
-    //       console.log("user", user);
-
-    //       if (user) {
-    //         user = {
-    //           uid: user.uid,
-    //           firstname: user.firstname,
-    //           email: user.email,
-    //         };
-    //         this.$store.commit("setUser", user);
-    //         console.log("userP", user);
-    //         this.$bvModal.hide("my-modal_2");
-    //         swal({
-    //           text: "Loggin successful",
-    //           icon: "success",
-    //           button: "OK",
-    //         });
-    //         console.log("userLog", user.uid);
-    //       } else {
-    //         swal({
-    //           text: "check your email or password",
-    //           icon: "error",
-    //           button: "OK",
-    //         });
-    //       }
-    //       console.log("userLog", user);
-    //       return user;
-    //     } catch (error) {
-    //       var errorMessage = error.message;
-    //       console.log("errorMessage", errorMessage);
-    //       return null;
-    //     }
-    //     //=========================END======================================
-    //   }
-    // },
   },
 };
 </script>

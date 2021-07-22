@@ -1,7 +1,14 @@
+import authent from "../store/authentication";
 import firebase from "firebase/app";
 import "firebase/auth";
 import "firebase/firestore";
-import { addToCartDB } from "../firebase";
+// import { addToCartDB } from "../firebase";
+console.log("authent", authent);
+
+// const getUser = authent.getters["/user"];
+// console.log("getUser", getUser);
+const userLoggedIn = authent.getters.userLoggedIn;
+console.log("userLoggedIn", userLoggedIn);
 
 var db = firebase.firestore();
 
